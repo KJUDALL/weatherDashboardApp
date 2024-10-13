@@ -1,7 +1,7 @@
 
-  # Vehicle Builder
+  # Weather Dashboard
   ## Description 
-  Have you ever wanted to build a vehicle from within the terminal? Well then this cli app is just for you! By running npm in the terminal, a user will be able to edit prompt messages and account for vehicles of all types, namely cars, bikes and trucks. The goal is to provide an all-inclusive command-line solution for vehicle owners globally. One that focuses on a specific vehicle, and it's abilities ie. trucks being able to tow, motorbikes only having 2 wheels, etc.
+  With our everchanging ecosystem, it's important to have useful and reliable websites when searching for weather data in your local area. This application was built to do just that! It's visually appealing, easy-to-use, and incredibly helpful when searching for city-specific weather information. Expect to see the temperature in Farenheit, the Wind forecast in MPH, and a percentage displaying the humidity level when searching a nearby city. Not only can you see an upcoming 5-day forecast, but users will also be able to see their previous search history for quick reference.  
   ## Table of Contents
   - [Description](#description)
   - [Installation](#installation)
@@ -25,7 +25,7 @@
     If you would like to contact me, you can do so at the links below. 
   If any questions come up in the future, you can contact me directly at 4kenzie@gmail.com. If you would like to view this repo, or check out any of my other work, visit my GitHub at [kjudall](https://github.com/kjudall/).
 
-  # Submission Requirements
+  # Submission Requirements - Module 9
   ## Technical Acceptance Criteria: 40%
   - Satisfies all of the preceding acceptance criteria plus the following:
 

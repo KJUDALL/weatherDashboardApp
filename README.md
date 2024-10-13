@@ -1,7 +1,7 @@
 
   # Vehicle Builder
   ## Description 
-  Have you ever wanted to build a vehicle from within the terminal? Well then this cli app is just for you! By running npm in the terminal, a user will be able to edit prompt messages and account for vehicles of all types, namely cars, bikes and trucks. The goal is to provide an all-inclusive command-line solution for vehicle owners globally. One that focuses on a specific vehicle, and it's abilities (ie. trucks being able to tow, motorbikes only having 2 wheels, etc.)
+  Have you ever wanted to build a vehicle from within the terminal? Well then this cli app is just for you! By running npm in the terminal, a user will be able to edit prompt messages and account for vehicles of all types, namely cars, bikes and trucks. The goal is to provide an all-inclusive command-line solution for vehicle owners globally. One that focuses on a specific vehicle, and it's abilities ie. trucks being able to tow, motorbikes only having 2 wheels, etc.
   ## Table of Contents
   - [Description](#description)
   - [Installation](#installation)
@@ -24,3 +24,49 @@
   ## Questions
     If you would like to contact me, you can do so at the links below. 
   If any questions come up in the future, you can contact me directly at 4kenzie@gmail.com. If you would like to view this repo, or check out any of my other work, visit my GitHub at [kjudall](https://github.com/kjudall/).
+
+  # Submission Requirements
+  ## Technical Acceptance Criteria: 40%
+  - Satisfies all of the preceding acceptance criteria plus the following:
+
+  - Application uses the OpenWeather API to retrieve weather data.
+
+  - Application back end must store cities that have a unique id in a JSON file.
+
+  - Application must be deployed to Render.
+
+  ## Deployment: 32%
+  - Application deployed at live URL.
+
+  - Application loads with no errors.
+
+  - Application GitHub URL submitted.
+
+  - GitHub Repository that contains Application code.
+
+  ## Application Quality: 15%
+  - Application user experience is intuitive and easy to navigate.
+
+  - Application user interface style is clean and polished.
+
+  - Application resembles the mock-up functionality provided in the Challenge instructions.
+
+  ## Repository Quality: 13%
+  - Repository has a unique name.
+
+  - Repository follows best practices for file structure and naming conventions.
+
+  - Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
+
+  - Repository contains multiple descriptive commit messages.
+
+  - Repository contains a quality README file with description, screenshot, and link to deployed Application.
+
+  ## Bonus
+  Fulfilling the following can add 10 points to your grade. Note that the highest grade you can achieve is still 100:
+  - Application allows users to delete cities.
+
+  ## How to Submit the Challenge
+  You are required to submit BOTH of the following for review:
+  - The URL of the functional, deployed Application.
+  - The URL of the GitHub Repository. Give the Repository a unique name and include a README describing the project.

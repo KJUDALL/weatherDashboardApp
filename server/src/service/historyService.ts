@@ -38,12 +38,13 @@ class HistoryService {
     fs.writeFileSync('searchHistory.json', data, 'utf8');
   }
   // * BONUS TODO: Define a removeCity method that removes a city from the searchHistory.json file
-  async removeCity(id: string) {
+  async removeCity(id: number) {
     const cities: City[] = await this.getCities();
-    cities.pop();
+    const index = cities.findIndex(city => city.id === id);
+    if (index !== -1) {
+      cities.splice(index, 1);
+    }
     const data = JSON.stringify(cities);
-    fs.writeFileSync('searchHistory.json', data, 'utf8');
   }
 }
-
 export default new HistoryService();

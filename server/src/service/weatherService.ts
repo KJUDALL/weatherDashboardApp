@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 // DONE by me: Import Fetch
 import fetch from 'node-fetch';
+import { accessSync } from 'node:fs';
 
 // DONE: Define an interface for the Coordinates object
 interface Coordinates {
@@ -84,6 +85,7 @@ private buildForecastArray(currentWeather: Weather, weatherData: any[]): Weather
     const windSpeed = data.wind.speed;
     const humidity = data.main.humidity;
     return new Weather(temperature, windSpeed, humidity);
+    console.log(currentWeather);
   });
 }
 
@@ -93,8 +95,9 @@ async getWeatherForCity(city: string): Promise<Weather> {
   const coordinates = await this.fetchAndDestructureLocationData();
   const weatherData = await this.fetchWeatherData(coordinates);
   const currentWeather = this.parseCurrentWeather(weatherData);
-  const forecastArray = this.buildForecastArray(currentWeather, weatherData.list);
+  const forecastArray = this.buildForecastArray(currentWeather, weatherData.list:any);
   return currentWeather;
+  console.log(forecastArray);
 }
 }
 

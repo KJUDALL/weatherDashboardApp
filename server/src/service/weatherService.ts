@@ -1,6 +1,5 @@
-//TODO by me: npm i express, dotenv, and query. Correct?
-import dotenv, { configDotenv } from 'dotenv';
-import { query } from 'express';
+//TODO by me: npm i dotenv and node-fetch
+import dotenv from 'dotenv';
 dotenv.config();
 // DONE by me: Import Fetch
 import fetch from 'node-fetch';
@@ -37,53 +36,63 @@ class WeatherService {
 
   // DONE: Create fetchLocationData method
   private async fetchLocationData(query: string) {
-    const APIKey = `bbb6dee2bb5cfd9e86c3b113c0c62076`;
-    const baseURL = `http://api.openweathermap.org/data/2.5/weather?q=${query}&appid=${APIKey}`;
+    const APIKey = this.APIKey;
+    const baseURL = `${this.baseURL}/weather?q=${query}&appid=${APIKey}`;
     // variables to await fetched data and await json response
     const response = await fetch(baseURL);
     const data = await response.json()
     return data;
   };
   // DONE: Create destructureLocationData method
-  private destructureLocationData(locationData: Coordinates): Coordinates {
-    const { lon, lat } = locationData;
+  private destructureLocationData(locationData: any): Coordinates {
+    const { coord: { lon, lat } } = locationData;
     return { lon, lat };
   }
   // DONE: Create buildGeocodeQuery method
   private buildGeocodeQuery(): string {
-    const queryURL = `http://api.openweathermap.org/data/2.5/weather?q=${this.cityName}&appid=${this.APIKey}`;
-    return queryURL;
+    return `${this.baseURL}/weather?q=${this.cityName}&appid=${this.APIKey}`;
   }
   // DONE: Create buildWeatherQuery method. Step 2.
   private buildWeatherQuery(coordinates: Coordinates): string {
     const { lon, lat } = coordinates;
-    const queryURL = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${this.APIKey}`;
-    return queryURL;
+    return `${this.baseURL}/weather?lat=${lat}&lon=${lon}&appid=${this.APIKey}`;
   }
   // TODO: Create fetchAndDestructureLocationData method
   private async fetchAndDestructureLocationData() {
-    const queryURL = `http://api.openweathermap.org/data/2.5/weather?q=${this.cityName}&appid=${this.APIKey}`;
-    const response = await fetch(queryURL);
-    const locationData = await response.json();
-    const { coord: { lon, lat }, name: cityName } = locationData;
-    return { lon, lat, cityName };
+    const queryURL = this.buildGeocodeQuery();
+    const locationData = await this.fetchLocationData(queryURL);
+    return this.destructureLocationData(locationData);
   }
   // TODO: Create fetchWeatherData method. Step 3.
   private async fetchWeatherData(coordinates: Coordinates) {
-
+    const queryURL = this.buildWeatherQuery(coordinates);
+    const response = await fetch(queryURL);
+    const weatherData = await response.json();
+    return weatherData;
   }
   // TODO: Build parseCurrentWeather method
-  private parseCurrentWeather(response: any) {
-
+  private parseCurrentWeather(response: any): Weather {
+    const temperature = response.main.temp;
+    const windSpeed = response.wind.speed;
+    const humidity = response.main.humidity;
+    return new Weather(temperature, windSpeed, humidity);
   }
   // TODO: Complete buildForecastArray method. Step 4. 
-  private buildForecastArray(currentWeather: Weather, weatherData: any[]) {
-
+  private buildForecastArray(currentWeather: Weather, weatherData: any[]): Weather[] {
+    return weatherData.map(data => {
+      const temperature = data.main.temp;
+      const windSpeed = data.wind.speed;
+      const humidity = data.main.humidity;
+      return new Weather(temperature, windSpeed, humidity);
+    })
   }
   // TODO: Complete getWeatherForCity method. Step 1. 
-  async getWeatherForCity(city: string) {
-
+  async getWeatherForCity(city: string): Promise<Weather> {
+    this.cityName = city;
+    const coordinates = await this.fetchAndDestructureLocationData();
+    const weatherData = await this.fetchWeatherData(coordinates);
+    return this.parseCurrentWeather(weatherData);
   }
 }
 
-export default new WeatherService();
+export default new WeatherService(process.env.BASE_URL || 'https://api.openweathermap.org/data/2.5', process.env.API_KEY || `your_api_key`, '');

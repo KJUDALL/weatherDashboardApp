@@ -15,19 +15,21 @@ router.post('/', async (req, res) => {
 
     // GET weather data from city name
     const weatherData = await WeatherService.getWeatherForCity(cityName);
-
+    if (!weatherData) {
+      return res.status(400).json({ error: 'Weather data not found.' });
+    }
     // Save city to search history
     await HistoryService.addCity(uuidv4(), cityName);
 
-    res.json(weatherData);
+    return res.json(weatherData);
   } catch (error) {
     console.error('Error retrieving weather data.', error);
-    res.status(500).json({ error: 'Failed to retrieve weather data.' });
+    return res.status(500).json({ error: 'Failed to retrieve weather data.' });
   }
 });
 
 // GET search history
-router.get('/history', async (req, res) => {
+router.get('/history', async (_, res) => {
   try {
     const history = await HistoryService.getCities();
     res.json(history);
@@ -41,15 +43,19 @@ router.get('/history', async (req, res) => {
 router.delete('/history/:id', async (req, res) => {
   try {
     const cityId = req.params.id;
+    if (!cityId) {
+      return res.status(400).json({ error: 'City ID is required.' });
+    }
+
     const result = await HistoryService.removeCity(cityId);
     if (result) {
-      res.json({ message: 'City deleted successfully!' });
+      return res.json({ message: 'City deleted successfully!' });
     } else {
-      res.status(404).json({ error: 'City not found.' });
+      return res.status(404).json({ error: 'City not found.' });
     }
   } catch (error) {
     console.error('Error deleting city from search history.', error);
-    res.status(500).json({ error: 'Failed to delete city from search history.' });
+    return res.status(500).json({ error: 'Failed to delete city from search history.' });
   }
 });
 

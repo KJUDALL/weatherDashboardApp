@@ -4,9 +4,9 @@ import fs from 'fs/promises';
 // DONE: Define a City class with name and id properties
 class City {
   name: string;
-  id: number;
+  id: string;
 
-  constructor(name: string, id: number) {
+  constructor(name: string, id: string) {
     this.name = name;
     this.id = id;
   }
@@ -39,13 +39,13 @@ class HistoryService {
     return await this.read();
   }
   // DONE: Define an addCity method that adds a city to the searchHistory.json file
-  async addCity(name: string, id: number): Promise<void> {
+  async addCity(name: string, id: string): Promise<void> {
     const cities: City[] = await this.getCities();
     cities.push(new City(name, id));
     await this.write(cities);
   }
-  // * BONUS TODO: Define a removeCity method that removes a city from the searchHistory.json file
-  async removeCity(id: number): Promise<boolean> {
+  // * BONUS DONE: Define a removeCity method that removes a city from the searchHistory.json file
+  async removeCity(id: string): Promise<boolean> {
     const cities = await this.getCities();
     const index = cities.findIndex(city => city.id === id);
     if (index !== -1) {

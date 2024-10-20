@@ -54,7 +54,7 @@ class WeatherService {
     const queryURL = `http://api.openweathermap.org/data/2.5/weather?q=${this.cityName}&appid=${this.APIKey}`;
     return queryURL;
   }
-  // DONE: Create buildWeatherQuery method
+  // DONE: Create buildWeatherQuery method. Step 2.
   private buildWeatherQuery(coordinates: Coordinates): string {
     const { lon, lat } = coordinates;
     const queryURL = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${this.APIKey}`;
@@ -68,7 +68,7 @@ class WeatherService {
     const { coord: { lon, lat }, name: cityName } = locationData;
     return { lon, lat, cityName };
   }
-  // TODO: Create fetchWeatherData method
+  // TODO: Create fetchWeatherData method. Step 3.
   private async fetchWeatherData(coordinates: Coordinates) {
 
   }
@@ -76,11 +76,11 @@ class WeatherService {
   private parseCurrentWeather(response: any) {
 
   }
-  // TODO: Complete buildForecastArray method
+  // TODO: Complete buildForecastArray method. Step 4. 
   private buildForecastArray(currentWeather: Weather, weatherData: any[]) {
 
   }
-  // TODO: Complete getWeatherForCity method
+  // TODO: Complete getWeatherForCity method. Step 1. 
   async getWeatherForCity(city: string) {
 
   }

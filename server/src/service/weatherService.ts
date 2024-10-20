@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 // DONE by me: Import Fetch
 import fetch from 'node-fetch';
-import { accessSync } from 'node:fs';
+// import { accessSync } from 'node:fs';
 
 // DONE: Define an interface for the Coordinates object
 interface Coordinates {
@@ -78,27 +78,32 @@ class WeatherService {
     const humidity = response.main.humidity;
     return new Weather(temperature, windSpeed, humidity);
   }
- // DONE: Complete buildForecastArray method. Step 4. 
-private buildForecastArray(currentWeather: Weather, weatherData: any[]): Weather[] {
-  return weatherData.map(data => {
-    const temperature = data.main.temp;
-    const windSpeed = data.wind.speed;
-    const humidity = data.main.humidity;
-    return new Weather(temperature, windSpeed, humidity);
-    console.log(currentWeather);
-  });
-}
+  // DONE: Complete buildForecastArray method. Step 4. 
+  private buildForecastArray(currentWeather: Weather, weatherData: any): Weather[] {
+    const forecastListArray: Weather[] =
+      weatherData.list.map((data: { main: { temp: number; humidity: number }; wind: { speed: number } }) => {
+        const temperature = data.main.temp;
+        const windSpeed = data.wind.speed;
+        const humidity = data.main.humidity;
+        return new Weather(temperature, windSpeed, humidity);
+        console.log(currentWeather);
+      });
+    return forecastListArray;
+  }
 
-// DONE: Complete getWeatherForCity method. Step 1. 
-async getWeatherForCity(city: string): Promise<Weather> {
-  this.cityName = city;
-  const coordinates = await this.fetchAndDestructureLocationData();
-  const weatherData = await this.fetchWeatherData(coordinates);
-  const currentWeather = this.parseCurrentWeather(weatherData);
-  const forecastArray = this.buildForecastArray(currentWeather, weatherData.list:any);
-  return currentWeather;
-  console.log(forecastArray);
-}
+  // DONE: Complete getWeatherForCity method. Step 1. 
+  async getWeatherForCity(city: string): Promise<Weather> {
+    this.cityName = city;
+    const coordinates = await this.fetchAndDestructureLocationData();
+    const weatherData = await this.fetchWeatherData(coordinates);
+    if (!weatherData) {
+      console.log("Error");
+    }
+    const currentWeather = this.parseCurrentWeather(weatherData);
+    const forecastArray = this.buildForecastArray(currentWeather, weatherData);
+    return currentWeather;
+    console.log(forecastArray);
+  }
 }
 
 export default new WeatherService(process.env.BASE_URL || 'https://api.openweathermap.org/data/2.5', process.env.API_KEY || `your_api_key`, '');

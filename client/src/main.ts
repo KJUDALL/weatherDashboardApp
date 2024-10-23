@@ -40,9 +40,11 @@ const fetchWeather = async (cityName: string) => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ cityName }),
+    body: cityName
+    // the {} are shorthand for cityName: cityName. Key/value pair.
+    // {} represents an object like in JS
   });
-
+  console.log('Here is the response: ', response);
   const weatherData = await response.json();
 
   console.log('weatherData: ', weatherData);
@@ -257,6 +259,8 @@ const handleSearchFormSubmit = (event: any): void => {
   }
 
   const search: string = searchInput.value.trim();
+  // console log is for debugging purposes
+  console.log('Here is search: ', search);
   fetchWeather(search).then(() => {
     getAndRenderHistory();
   });

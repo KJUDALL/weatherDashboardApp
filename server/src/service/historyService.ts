@@ -18,7 +18,7 @@ class HistoryService {
   // DONE: Define a read method that reads from the searchHistory.json file
   private async read(): Promise<City[]> {
     try {
-      const data = await fs.readFile('searchHistory.json', 'utf8');
+      const data = await fs.readFile('db/searchHistory.json', 'utf8');
       return JSON.parse(data);
     } catch (error) {
       console.error('Error reading file.', error);

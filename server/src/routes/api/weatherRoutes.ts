@@ -6,6 +6,7 @@ import WeatherService from '../../service/weatherService.js';
 import { v4 as uuidv4 } from 'uuid';
 
 // POST Request with city name to retrieve weather data
+// this is the /api/weather endpoint
 router.post('/', async (req, res) => {
   try {
     const cityName = req.body.city;
@@ -14,11 +15,14 @@ router.post('/', async (req, res) => {
     }
 
     // GET weather data from city name
+    // debug this method
     const weatherData = await WeatherService.getWeatherForCity(cityName);
     if (!weatherData) {
       return res.status(400).json({ error: 'Weather data not found.' });
     }
     // Save city to search history
+    // possibly debug this too
+    // add console logs to debug
     await HistoryService.addCity(uuidv4(), cityName);
 
     return res.json(weatherData);
